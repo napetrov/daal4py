@@ -14,11 +14,12 @@
 # limitations under the License.
 #===============================================================================
 
-import numpy as np
-# calling scikit-learn patch
+# Calling scikit-learn patch - this would enable acceleration on all enabled algorithms
 from sklearnex import patch_sklearn
 patch_sklearn()
 
+#Remaining non modified scikit-learn code
+import numpy as np
 from sklearn.datasets import make_blobs
 from sklearn.preprocessing import StandardScaler
 
