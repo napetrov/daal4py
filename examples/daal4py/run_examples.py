@@ -51,10 +51,7 @@ else:
 
 assert 8 * struct.calcsize('P') in [32, 64]
 
-if 8 * struct.calcsize('P') == 32:
-    logdir = jp(exdir, '_results', 'ia32')
-else:
-    logdir = jp(exdir, '_results', 'intel64')
+logdir = jp(exdir, '_results', 'intel64')
 
 availabe_devices = []
 
