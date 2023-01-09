@@ -29,7 +29,7 @@ print('Starting examples validation')
 # First item is major version - 2021,
 # second is minor+patch - 0110,
 # third item is status - B
-print('DAAL version:', get_daal_version())
+print('oneDAL version:', get_daal_version())
 
 exdir = os.path.dirname(os.path.realpath(__file__))
 

@@ -32,7 +32,7 @@ from daal4py.sklearn._utils import get_daal_version
 # second is minor+patch - 0110,
 # third item is status - B
 daal_version = get_daal_version()
-print('DAAL version:', daal_version)
+print('oneDAL version:', daal_version)
 
 
 def check_version(rule, target):
