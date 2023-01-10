@@ -25,6 +25,8 @@ examples_path = os.path.join(os.path.dirname(test_path), "examples", "sklernex")
 sys.path.insert(0, examples_path)
 os.chdir(examples_path)
 
+python_executable = subprocess.run(['which', 'python'], capture_output=True).stdout.decode().strip()
+
 # First item is major version - 2021,
 # second is minor+patch - 0110,
 # third item is status - B
@@ -43,6 +45,7 @@ def check_version(rule, target):
                 break
     return True
 
+
 def check_libraries(rule):
     for rule_item in rule:
         try:
@@ -51,12 +54,12 @@ def check_libraries(rule):
             return False
     return True
 
+
 class TestExamples(unittest.TestCase):
     def setUp(self):
         self.path = examples_path
 
     def add_test(self, e, ver=(0, 0), req_libs=[]):
-        import importlib
 
         @unittest.skipUnless(
             check_version(ver, sklearnex_version),
@@ -67,10 +70,10 @@ class TestExamples(unittest.TestCase):
             "cannot import required libraries " + str(req_libs)
         )
         def testit(self):
-            ex = importlib.import_module(e)
-            result = subprocess.run(['python', e], cwd=self.path)
+            result = subprocess.run([python_executable, e], cwd=self.path)
             self.assertEqual(result.returncode, 0)
         setattr(TestExamples, 'test_' + e, testit)
+
 
 gen_examples = [
     ('patch_sklern', (2020, 'P', 0))
