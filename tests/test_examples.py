@@ -15,11 +15,21 @@
 #===============================================================================
 
 import unittest
+import os
+import sys
+test_path = os.path.abspath(os.path.dirname(__file__))
+unittest_data_path = os.path.join(test_path, "unittest_data")
+examples_path = os.path.join(os.path.dirname(test_path), "examples", "sklearnex")
+sys.path.insert(0, examples_path)
+os.chdir(examples_path)
 
 # Import and run the test_examples_sklernex.py script
 import test_examples_sklernex
 sklernex_suite = unittest.TestLoader().loadTestsFromModule(test_examples_sklernex)
 
+examples_path = os.path.join(os.path.dirname(test_path), "examples", "daal4py")
+sys.path.insert(0, examples_path)
+os.chdir(examples_path)
 # Import and run the test_examples_daal4py.py script
 import test_examples_daal4py
 daal4py_suite = unittest.TestLoader().loadTestsFromModule(test_examples_daal4py)
