@@ -14,15 +14,18 @@
 # limitations under the License.
 #===============================================================================
 
+import os
 import subprocess
 python_executable = subprocess.run(['/usr/bin/which', 'python'], check=True,
                                     capture_output=True).stdout.decode().strip()
+self_path = os.path.abspath(os.path.dirname(__file__))
+tests_path = os.path.join(os.path.dirname(self_path), "tests")
 
 #Executing examples
 print('Executing sklernex examples')
 # Import and run the test_examples_sklernex.py script
-subprocess.run([python_executable, "test_examples_sklernex.py"], check=True)
+subprocess.run([python_executable, "test_examples_sklernex.py"], check=True, cwd=tests_path)
 
 print('Executing daal4py examplesss')
 # Import and run the test_examples_daal4py.py script
-subprocess.run([python_executable, "test_examples_daal4py.py"], check=True)
+subprocess.run([python_executable, "test_examples_daal4py.py"], check=True, cwd=tests_path)
