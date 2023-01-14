@@ -35,6 +35,7 @@ os.chdir(examples_path)
 daal_version = get_daal_version()
 print('oneDAL version:', daal_version)
 
+
 def check_version(rule, target):
     '''Version comparison check'''
     if not isinstance(rule[0], type(target)):

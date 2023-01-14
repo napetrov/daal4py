@@ -21,12 +21,14 @@ import unittest
 from sklearnex._utils import get_sklearnex_version
 test_path = os.path.abspath(os.path.dirname(__file__))
 unittest_data_path = os.path.join(test_path, "unittest_data")
-examples_path = os.path.join(os.path.dirname(test_path), "examples", "sklearnex")
+examples_path = os.path.join(
+    os.path.dirname(test_path), "examples", "sklearnex")
 sys.path.insert(0, examples_path)
 os.chdir(examples_path)
 
-python_executable = subprocess.run(['/usr/bin/which', 'python'], check=True, 
-                                    capture_output=True).stdout.decode().strip()
+python_executable = subprocess.run(
+    ['/usr/bin/which', 'python'], check=True,
+    capture_output=True).stdout.decode().strip()
 
 # First item is major version - 2021,
 # second is minor+patch - 0110,
