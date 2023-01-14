@@ -16,26 +16,27 @@
 
 import os
 import sys
+import importlib
+import unittest
+import numpy as np
+import pandas as pd
+from scipy.sparse import csr_matrix
+from daal4py.sklearn._utils import get_daal_version
+
 test_path = os.path.abspath(os.path.dirname(__file__))
 unittest_data_path = os.path.join(test_path, "unittest_data")
 examples_path = os.path.join(os.path.dirname(test_path), "examples", "daal4py")
 sys.path.insert(0, examples_path)
 os.chdir(examples_path)
 
-import unittest
-import numpy as np
-import pandas as pd
-from scipy.sparse import csr_matrix
-
-from daal4py.sklearn._utils import get_daal_version
 # First item is major version - 2021,
 # second is minor+patch - 0110,
 # third item is status - B
 daal_version = get_daal_version()
 print('oneDAL version:', daal_version)
 
-
 def check_version(rule, target):
+    '''Version comparison check'''
     if not isinstance(rule[0], type(target)):
         if rule > target:
             return False
@@ -49,6 +50,7 @@ def check_version(rule, target):
 
 
 def check_libraries(rule):
+    '''Check for package avilability'''
     for rule_item in rule:
         try:
             __import__(rule_item, fromlist=[''])
@@ -59,6 +61,7 @@ def check_libraries(rule):
 
 # function reading file and returning numpy array
 def np_read_csv(f, c=None, s=0, n=np.iinfo(np.int64).max, t=np.float64):
+    '''read_csv implementation for numpy data'''
     if s == 0 and n == np.iinfo(np.int64).max:
         return np.loadtxt(f, usecols=c, delimiter=',', ndmin=2, dtype=t)
     a = np.genfromtxt(f, usecols=c, delimiter=',', skip_header=s, max_rows=n, dtype=t)
@@ -71,17 +74,19 @@ def np_read_csv(f, c=None, s=0, n=np.iinfo(np.int64).max, t=np.float64):
 
 # function reading file and returning pandas DataFrame
 def pd_read_csv(f, c=None, s=0, n=None, t=np.float64):
+    '''read_csv implementation for pandas data'''
     return pd.read_csv(f, usecols=c, delimiter=',', header=None,
                        skiprows=s, nrows=n, dtype=t)
 
 
 # function reading file and returning scipy.sparse.csr_matrix
 def csr_read_csv(f, c=None, s=0, n=None, t=np.float64):
+    '''read_csv implementation for CSR data'''
     return csr_matrix(pd_read_csv(f, c, s=s, n=n, t=t))
 
 
 def add_test(cls, e, f=None, attr=None, ver=(0, 0), req_libs=[]):
-    import importlib
+    '''function for adding tests'''
 
     @unittest.skipUnless(
         check_version(ver, daal_version),
