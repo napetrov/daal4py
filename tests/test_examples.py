@@ -17,24 +17,21 @@
 import unittest
 import os
 import sys
+import subprocess
 test_path = os.path.abspath(os.path.dirname(__file__))
 unittest_data_path = os.path.join(test_path, "unittest_data")
+python_executable = subprocess.run(['/usr/bin/which', 'python'],
+capture_output=True).stdout.decode().strip()
 
 #Executing examples
 examples_path = os.path.join(os.path.dirname(test_path), "examples", "sklearnex")
 sys.path.insert(0, examples_path)
-os.chdir(examples_path)
 print('Executing sklernex examples from ', examples_path)
 # Import and run the test_examples_sklernex.py script
-import test_examples_sklernex
-sklernex_suite = unittest.TestLoader().loadTestsFromModule(test_examples_sklernex)
-unittest.TextTestRunner().run(sklernex_suite)
+subprocess.run([python_executable, "test_examples_sklernex.py"], cwd=examples_path)
 
 examples_path = os.path.join(os.path.dirname(test_path), "examples", "daal4py")
 sys.path.insert(0, examples_path)
-os.chdir(examples_path)
 print('Executing daal4py examples from ', examples_path)
 # Import and run the test_examples_daal4py.py script
-import test_examples_daal4py
-daal4py_suite = unittest.TestLoader().loadTestsFromModule(test_examples_daal4py)
-unittest.TextTestRunner().run(daal4py_suite)
+subprocess.run([python_executable, "test_examples_daal4py.py"], cwd=examples_path)
