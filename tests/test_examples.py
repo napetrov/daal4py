@@ -19,23 +19,22 @@ import os
 import sys
 test_path = os.path.abspath(os.path.dirname(__file__))
 unittest_data_path = os.path.join(test_path, "unittest_data")
+
+#Executing examples
 examples_path = os.path.join(os.path.dirname(test_path), "examples", "sklearnex")
 sys.path.insert(0, examples_path)
 os.chdir(examples_path)
-
+print('Executing sklernex examples from ', examples_path)
 # Import and run the test_examples_sklernex.py script
 import test_examples_sklernex
 sklernex_suite = unittest.TestLoader().loadTestsFromModule(test_examples_sklernex)
+unittest.TextTestRunner().run(sklernex_suite)
 
 examples_path = os.path.join(os.path.dirname(test_path), "examples", "daal4py")
 sys.path.insert(0, examples_path)
 os.chdir(examples_path)
+print('Executing daal4py examples from ', examples_path)
 # Import and run the test_examples_daal4py.py script
 import test_examples_daal4py
 daal4py_suite = unittest.TestLoader().loadTestsFromModule(test_examples_daal4py)
-
-# Create a combined test suite containing the tests from both scripts
-combined_suite = unittest.TestSuite([sklernex_suite, daal4py_suite])
-
-# Run the combined test suite
-unittest.TextTestRunner().run(combined_suite)
+unittest.TextTestRunner().run(daal4py_suite)
