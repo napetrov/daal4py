@@ -18,7 +18,7 @@ import os
 import subprocess
 import sys
 import unittest
-from sklearnex._utils import get_daal_version
+from daal4py.sklearn._utils import get_daal_version
 test_path = os.path.abspath(os.path.dirname(__file__))
 unittest_data_path = os.path.join(test_path, "unittest_data")
 examples_path = os.path.join(
