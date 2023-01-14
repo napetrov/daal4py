@@ -20,7 +20,7 @@ import os
 if d4p.__has_dist__:
     import unittest
     import numpy as np
-    from test_examples import np_read_csv, add_test
+    from test_examples_daal4py import np_read_csv, add_test
 
     class Base():
         def test_svd_spmd(self):
