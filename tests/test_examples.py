@@ -21,7 +21,7 @@ import subprocess
 test_path = os.path.abspath(os.path.dirname(__file__))
 unittest_data_path = os.path.join(test_path, "unittest_data")
 python_executable = subprocess.run(['/usr/bin/which', 'python'],
-capture_output=True).stdout.decode().strip()
+    capture_output=True).stdout.decode().strip()
 
 #Executing examples
 examples_path = os.path.join(os.path.dirname(test_path), "examples", "sklearnex")
