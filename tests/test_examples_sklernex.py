@@ -25,8 +25,8 @@ examples_path = os.path.join(os.path.dirname(test_path), "examples", "sklernex")
 sys.path.insert(0, examples_path)
 os.chdir(examples_path)
 
-python_executable = subprocess.run(['/usr/bin/which', 'python'],
-    capture_output=True).stdout.decode().strip()
+python_executable = subprocess.run(['/usr/bin/which', 'python'], check=True, 
+                                    capture_output=True).stdout.decode().strip()
 
 # First item is major version - 2021,
 # second is minor+patch - 0110,

@@ -16,7 +16,7 @@
 
 import subprocess
 python_executable = subprocess.run(['/usr/bin/which', 'python'], check=True,
-    capture_output=True).stdout.decode().strip()
+                                    capture_output=True).stdout.decode().strip()
 
 #Executing examples
 print('Executing sklernex examples')
