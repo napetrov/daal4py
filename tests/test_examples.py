@@ -14,18 +14,15 @@
 # limitations under the License.
 #===============================================================================
 
-import unittest
-import os
-import sys
 import subprocess
-python_executable = subprocess.run(['/usr/bin/which', 'python'],
+python_executable = subprocess.run(['/usr/bin/which', 'python'], check=True,
     capture_output=True).stdout.decode().strip()
 
 #Executing examples
 print('Executing sklernex examples')
 # Import and run the test_examples_sklernex.py script
-subprocess.run([python_executable, "test_examples_sklernex.py"])
+subprocess.run([python_executable, "test_examples_sklernex.py"], check=True)
 
 print('Executing daal4py examplesss')
 # Import and run the test_examples_daal4py.py script
-subprocess.run([python_executable, "test_examples_daal4py.py"])
+subprocess.run([python_executable, "test_examples_daal4py.py"], check=True)

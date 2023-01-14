@@ -14,9 +14,9 @@
 # limitations under the License.
 #===============================================================================
 
-# sklearnex doesn't have interface for threading configuration and not following 
+# sklearnex doesn't have interface for threading configuration and not following
 # scikit-learn n_jobs yet. Thus it's requered to use daal4py package to set this.
-# nthreads parameter define number of threads used by sklearnex. 
+# nthreads parameter define number of threads used by sklearnex.
 # Without this code sklearnex would be using all system cores
 import daal4py
 daal4py.daalinit(nthreads=2)
