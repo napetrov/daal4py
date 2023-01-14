@@ -18,7 +18,7 @@ import os
 import subprocess
 import sys
 import unittest
-from sklearnex._utils import get_sklearnex_version
+from sklearnex._utils import get_daal_version
 test_path = os.path.abspath(os.path.dirname(__file__))
 unittest_data_path = os.path.join(test_path, "unittest_data")
 examples_path = os.path.join(
@@ -33,7 +33,7 @@ python_executable = subprocess.run(
 # First item is major version - 2021,
 # second is minor+patch - 0110,
 # third item is status - B
-sklearnex_version = get_sklearnex_version()
+sklearnex_version = get_daal_version()
 print('oneDAL version:', sklearnex_version)
 
 
