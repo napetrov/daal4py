@@ -24,7 +24,7 @@ tests_path = os.path.join(os.path.dirname(self_path), "tests")
 #Executing examples
 print('Executing sklernex examples')
 # Import and run the test_examples_sklernex.py script
-subprocess.run([python_executable, "test_examples_sklernex.py"], check=True, cwd=tests_path)
+subprocess.run([python_executable, "test_examples_sklearnex.py"], check=True, cwd=tests_path)
 
 print('Executing daal4py examplesss')
 # Import and run the test_examples_daal4py.py script
