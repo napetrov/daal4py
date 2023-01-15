@@ -37,54 +37,24 @@ sklearnex_version = get_daal_version()
 print('oneDAL version:', sklearnex_version)
 
 
-def check_version(rule, target):
-    if not isinstance(rule[0], type(target)):
-        if rule > target:
-            return False
-    else:
-        for rule_item in rule:
-            if rule_item > target:
-                return False
-            if rule_item[0] == target[0]:
-                break
-    return True
+class TestsklearnexExamples(unittest.TestCase):
+    '''Class for testing sklernex examples'''
+    def test_examples_in_directory(self):
+        # Get a list of all Python files in the examples directory
+        files = [f for f in os.listdir(examples_path) if f.endswith(".py")]
 
+        # Iterate over each file and run it as a test case
+        for file in files:
+            with self.subTest(file=file):
+                # Run the script and capture its exit code
+                process = subprocess.run(
+                    [python_executable, os.path.join(examples_path, file)],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                    check=True)
+                exit_code = process.returncode
 
-def check_libraries(rule):
-    for rule_item in rule:
-        try:
-            __import__(rule_item, fromlist=[''])
-        except ImportError:
-            return False
-    return True
-
-
-def add_test(e, ver=(0, 0), req_libs=[]):
-
-    @unittest.skipUnless(
-        check_version(ver, sklearnex_version),
-        str(ver) + " not supported in this library version "
-        + str(sklearnex_version)
-    )
-    @unittest.skipUnless(
-        check_libraries(req_libs),
-        "cannot import required libraries " + str(req_libs)
-    )
-    def testit(self):
-        result = subprocess.run(
-            [python_executable, e], cwd=examples_path, check=True)
-        self.assertEqual(result.returncode, 0)
-    setattr('test_' + e, testit)
-
-
-gen_examples = [
-    ('patch_sklern', (2020, 'P', 0)),
-    ('n_jobs', (2020, 'P', 0)),
-    ('verbose_mode', (2020, 'P', 0))
-]
-
-for example in gen_examples:
-    add_test(*example)
+                # Assert that the exit code is 0
+                self.assertEqual(exit_code, 0)
 
 
 if __name__ == '__main__':
