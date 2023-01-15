@@ -59,32 +59,32 @@ def check_libraries(rule):
     return True
 
 
-class TestExamples(unittest.TestCase):
-    def setUp(self):
-        self.path = examples_path
+def add_test(e, ver=(0, 0), req_libs=[]):
 
-    def add_test(self, e, ver=(0, 0), req_libs=[]):
-
-        @unittest.skipUnless(
-            check_version(ver, sklearnex_version),
-            str(ver) + " not supported in this library version " + str(sklearnex_version)
-        )
-        @unittest.skipUnless(
-            check_libraries(req_libs),
-            "cannot import required libraries " + str(req_libs)
-        )
-        def testit(self):
-            result = subprocess.run([python_executable, e], cwd=self.path)
-            self.assertEqual(result.returncode, 0)
-        setattr(TestExamples, 'test_' + e, testit)
+    @unittest.skipUnless(
+        check_version(ver, sklearnex_version),
+        str(ver) + " not supported in this library version "
+        + str(sklearnex_version)
+    )
+    @unittest.skipUnless(
+        check_libraries(req_libs),
+        "cannot import required libraries " + str(req_libs)
+    )
+    def testit(self):
+        result = subprocess.run(
+            [python_executable, e], cwd=examples_path, check=True)
+        self.assertEqual(result.returncode, 0)
+    setattr('test_' + e, testit)
 
 
 gen_examples = [
-    ('patch_sklern', (2020, 'P', 0))
+    ('patch_sklern', (2020, 'P', 0)),
+    ('n_jobs', (2020, 'P', 0)),
+    ('verbose_mode', (2020, 'P', 0))
 ]
 
 for example in gen_examples:
-    TestExamples.add_test(*example)
+    add_test(*example)
 
 
 if __name__ == '__main__':
