@@ -29,7 +29,7 @@ export DESELECT_FLAGS="--public ${DESELECT_FLAGS}"
 if [ -n "${SKLEARNEX_PREVIEW}" ]; then
     export DESELECT_FLAGS="--preview ${DESELECT_FLAGS}"
 fi
-export DESELECTED_TESTS=$(python ../.circleci/deselect_tests.py ../deselected_tests.yaml ${DESELECT_FLAGS})
+export DESELECTED_TESTS=$(python scripts/deselect_tests.py ../deselected_tests.yaml ${DESELECT_FLAGS})
 
 # manual setting of OCL_ICD_FILENAMES is required in
 # specific MSYS environment with conda packages downloaded from intel channel

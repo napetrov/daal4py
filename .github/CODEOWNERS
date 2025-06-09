@@ -1,7 +1,6 @@
 # Infra and tools
 .*                            @napetrov @Alexsandruss @homksei @ahuber21 @ethanglaser
 .ci/                          @napetrov @Alexsandruss @homksei @ahuber21 @ethanglaser
-.circleci/                    @napetrov @Alexsandruss @homksei @ahuber21 @ethanglaser
 .github/                      @napetrov @Alexsandruss @homksei @ahuber21 @ethanglaser @icfaust
 
 # Docs
