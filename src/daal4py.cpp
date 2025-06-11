@@ -86,7 +86,7 @@ void rawp_free_cap(PyObject * cap)
     void * rp = PyCapsule_GetPointer(cap, NULL);
     if (rp)
     {
-        delete[] rp;
+        ::operator delete[](rp);
         rp = NULL;
     }
 }
