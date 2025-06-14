@@ -86,7 +86,8 @@ void rawp_free_cap(PyObject * cap)
     void * rp = PyCapsule_GetPointer(cap, NULL);
     if (rp)
     {
-        delete[] rp;
+        // cast to char pointer to match the allocation with delete[]
+        delete[] static_cast<char *>(rp);
         rp = NULL;
     }
 }
