@@ -1,49 +1,37 @@
 # AGENTS.md - Core Implementation (src/)
 
 ## Purpose
-C++/Cython implementation providing direct Python bindings to Intel oneDAL with zero-overhead access, memory management, and distributed computing.
+C++/Cython bindings to Intel oneDAL with zero-overhead access and distributed computing.
 
 ## Key Files
-- `daal4py.cpp/.h` - Main C++ interface and NumPy integration
-- `npy4daal.h` - NumPy-oneDAL conversion utilities
-- `gbt_model_builder.pyx` - Gradient boosting tree builder
-- `gettree.pyx` - Tree visitor patterns (sklearn compatibility)
-- `transceiver.h` - Communication abstraction for distributed computing
-- `dist_*.h` - Distributed algorithm implementations (DBSCAN, K-Means)
-- `pickling.h` - Serialization support
+- `daal4py.cpp/.h` - Main C++ interface, NumPy integration
+- `npy4daal.h` - NumPy-oneDAL conversion
+- `gbt_model_builder.pyx` - Gradient boosting builder
+- `gettree.pyx` - Tree visitor (sklearn compatibility)
+- `transceiver.h` - Distributed communication
+- `dist_*.h` - Distributed algorithms (DBSCAN, K-Means)
 
 ## Core Features
 
-### Memory Management
-```cpp
-// Zero-copy NumPy integration with thread-safe reference counting
-class NumpyDeleter : public daal::services::DeleterIface {
-    // GIL-protected cleanup of Python objects
-};
-```
+**Memory Management:**
+- Zero-copy NumPy integration
+- Thread-safe reference counting
+- GIL-protected cleanup
 
-### Distributed Computing
-```cpp
-// MPI-based communication layer
-class transceiver_iface {
-    virtual void gather(...) = 0;
-    virtual void bcast(...) = 0;
-    virtual void reduce_all(...) = 0;
-};
-```
+**Distributed Computing:**
+- MPI-based communication (gather, broadcast, reduce)
+- Map-reduce patterns
 
-### Tree Model Building
+**Tree Model Building:**
 ```cython
-# Cython interface for external model conversion
-cdef class gbt_classification_model_builder:
-    def create_tree(self, n_nodes, class_label)
-    def add_split(self, feature_index, threshold)
-    def add_leaf(self, response, cover)
+# External model conversion interface
+gbt_classification_model_builder.create_tree(n_nodes, class_label)
+gbt_classification_model_builder.add_split(feature_index, threshold)
+gbt_classification_model_builder.add_leaf(response, cover)
 ```
 
 ## For AI Agents
-- src/ contains performance-critical C++/Cython code
-- Use existing patterns for memory management (zero-copy, GIL protection)
-- Distributed algorithms follow map-reduce patterns
-- Model builders enable external framework integration (XGBoost→oneDAL)
-- Maintain thread safety and cross-platform compatibility
+- Use existing patterns for memory management
+- Follow map-reduce patterns for distributed algorithms
+- Maintain thread safety and GIL protection
+- Ensure cross-platform compatibility
